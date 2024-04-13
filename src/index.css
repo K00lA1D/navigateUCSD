@@ -1,0 +1,28 @@
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+span.Resizer.vertical{
+
+  cursor: col-resize;
+  width: 20px;
+  background: black;
+  min-height: 20px;
+}
+
+span.Resizer.horizontal{
+  cursor: row-resize;
+  width: 20px;
+  background: black;
+  height: 20px;
+}

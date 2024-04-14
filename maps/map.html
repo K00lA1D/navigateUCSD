@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Azure Maps: Animate GPS Trace</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="https://atlas.microsoft.com/sdk/javascript/mapcontrol/3/atlas.min.css" type="text/css" />
+    <script src="https://atlas.microsoft.com/sdk/javascript/mapcontrol/3/atlas.min.js"></script>
+    <script src="https://atlas.microsoft.com/sdk/javascript/spatial/0/atlas-spatial.min.js"></script>
+    <script src="/lib/azure-maps/azure-maps-animations.min.js"></script>
+    <style>
+        body, html {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+        #myMap {
+            width: 100%;
+            height: 1400px; /* Height adjusted as per your request */
+        }
+        .controls {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background-color: white;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        #infoPanel {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background-color: white;
+            padding: 10px;
+            border-radius: 5px;
+            max-width: 300px;
+            overflow: auto;
+        }
+    </style>
+</head>
+<body onload="GetMap()">
+    <!-- Div for the Azure Map with specific dimensions -->
+    <div id="myMap"></div>
+    <div class="controls" id="animationControls" style="display: none;">
+        <!-- Animation controls will be added here dynamically -->
+    </div>
+    <div id="infoPanel"></div>
+
+    <script>
+        var map, datasource, pin;
+
+        var locations = {
+'Revelle College': '-117.240843791937, 32.8756844350981',
+'Warren College': '-117.23281088454, 32.8825866510293',
+'Muir College': '-117.241001307279, 32.8787288659333',
+'Eleanor Roosevelt College': '-117.242257615978, 32.8860562258214',
+'Marshall College': '-117.242012888238, 32.8834506082528',
+'Sixth College': '-117.24144468769, 32.8808632553821',
+'Seventh College': '-117.241654333717, 32.8881059140197',
+'Eighth College': '-117.241884691389, 32.8722111492467',
+'RIMAC': '-117.240476244813, 32.8851040736188',
+'Main Gym': '-117.241244984452, 32.8771782863005',
+'Canyon View Center': '-117.231787044813, 32.8804446824681',
+'Cafe Ventanas': '-117.242563273649, 32.8860762214279',
+'Ocean View Terrace': '-117.242745344813, 32.8830496144318',
+'Pines': '-117.242473487142, 32.878763553017',
+'64 Degrees': '-117.242034102485, 32.874745873623',
+'Geisel': '-117.237555173649, 32.8810649434171',
+'CSE Building': '-117.233480587142, 32.8817645336355',
+'Price Center': '-117.236180645588, 32.8797142976572',
+'Center Hall': '-117.237385432813, 32.8775377778697',
+'York Hall': '-117.239934429909, 32.8742273689528',
+'Galbraith Hall': '-117.240968933688, 32.8737011830541',
+'Pepper Canyon Hall': '-117.233755823076, 32.8783669920803',
+'SuperComputer Center': '-117.239160973649, 32.8843355152156',
+'Rady School': '-117.24178003754, 32.8869401384703',
+'Social Sciences Building': '-117.240450256902, 32.8839510430299',
+'Franklin Antonio Hall': '-117.23492826943, 32.8834472279301',
+'Cognitive Science Building': '-117.239598866585, 32.8805880659762',
+'Mandeville Auditorium': '-117.239433702485, 32.8778456944162',
+'Jacobs School': '-117.235494602485, 32.8815225235185',
+'Warren Lecture Hall': '-117.234311902485, 32.880484022991'
+};;
+
+        function GetMap() {
+            map = new atlas.Map('myMap', {
+                center: [-117.240476244813, 32.8851040736188],
+                zoom: 15,
+                view: 'Auto',
+                authOptions: {
+                    authType: 'subscriptionKey',
+                    subscriptionKey: 'q6E90CxFS1bb3-MfR4m0rEnV7HD7cuSLd9TZGi75O64' 
+                }
+            });
+
+            map.events.add('ready', function () {
+                datasource = new atlas.source.DataSource();
+                map.sources.add(datasource);
+
+                // Create an HTML marker and add it to the map
+                pin = new atlas.HtmlMarker({
+                    color: 'DodgerBlue',
+                    text: '1',
+                    secondaryColor: 'white',
+                    scale: 2
+                });
+                map.markers.add(pin);
+
+                var points = Object.keys(locations).map(function(key) {
+                    var position = locations[key].split(', ').map(parseFloat);
+                    return { position: position, name: key };
+                });
+
+                animatePoints(points);
+            });
+        }
+
+        function animatePoints(points) {
+            var i = 0;
+            function next() {
+                if (i < points.length) {
+                    pin.setOptions({
+                        position: points[i].position,
+                        text: (i + 1).toString()
+                    });
+                    map.setCamera({
+                        center: points[i].position,
+                        zoom: 17,
+                        type: 'ease',
+                        duration: 1000
+                    });
+                    i++;
+                    setTimeout(next, 3000); // Pause for 3 seconds before moving to the next point
+                } else {
+                    i = 0; // Reset to loop again if needed
+                    setTimeout(next, 3000); // Restart the animation after a pause
+                }
+            }
+            next();
+        }
+    </script>
+</body>
+</html>

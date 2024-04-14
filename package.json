@@ -14,7 +14,10 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "react-scripts start",
+
+    "start-client": "react-scripts start",
+    "start-api": "python src/Connection.py",
+    "start": "concurrently --kill-others --prefix \"[{name}]\" --names \"REACT,FLASK\" \"npm run start-client\" \"npm run start-api\"",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
@@ -36,5 +39,9 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "proxy": "http://localhost:5000",
+  "devDependencies": {
+    "concurrently": "^8.2.2"
   }
 }

@@ -2,16 +2,15 @@ import React from 'react';
 import ListWidget from './ListWidget.js';
 import locationOptions from './Data.js';
 import Graph from './Graph.js';
-import Thread from './Thread.js';
+//import Thread from './Thread.js';
 
 class LeftSideWidget extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            schedule: [],
             selectedLocation: locationOptions[0],
             selectedIndex: null,
-            startLocation: ''
+            startLocation: locationOptions[0]
         };
         this.listWidgetRef = React.createRef(); // Create the ref here
         this.graph = new Graph();
@@ -30,55 +29,43 @@ class LeftSideWidget extends React.Component {
 
     addRow = () => {
         const location = this.state.selectedLocation;
-        //console.log("selectedLocation: " + location);
         if (location && location !== this.state.startLocation) {
-            //this.setState(prevState => ({
-              //  schedule: [...prevState.schedule, prevState.selectedLocation]
-            //}), () => {
             this.listWidgetRef.current.add(location);
-                //console.log("This is the add method schedule : " + this.state.schedule);
-            //});
         }
     }
 
     deleteRow = () => {
-
-       //const delSelected = this.listWidgetRef.current.state.selected;
-
-       //console.log("delSelected : " + delSelected);
-       //if(delSelected){
-        console.log("we're inside leftside delete method");
         this.listWidgetRef.current.delete();
-        
-        //this.setState((prevState) => ({
-          //  schedule: prevState.schedule.filter((element) => JSON.stringify(element) !== JSON.stringify(delSelected)),
-          //}));
-       //}
-        //console.log("This is the delete method schedule : " + this.state.schedule);
     }
 
     clearTable = () => {
-        this.setState({ schedule: [] }, () => {
-            //console.log("schedule within clear method: " + this.state.schedule);
-            this.listWidgetRef.current.clear();
-        });
+        this.listWidgetRef.current.clear();
     }
 
     runAlgorithm = () => {
-        if (!this.state.schedule.length) {
+        if (!this.listWidgetRef.current.state.elements.length) {
             console.log("Please add items to your schedule");
             return;
         }
-
-        const thread = new Thread(this.graph.optimize_schedule(), 
-        [this.state.startLocation, this.state.schedule]);
-
-        thread.setOnFinish(result => {
+        fetch('http://localhost:3000/optimize_schedule', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                startLocation: this.state.startLocation,
+                schedule: this.listWidgetRef.current.state.elements,
+            }),
+        })
+        .then(response => response.json())
+        /*
+        .then(result => {
+            console.log('Response:', result);
             console.log('Thread finished with result:', result);
             this.onTaskCompleted();
-        });
-
-        thread.run(); 
+        })
+        */
+        .catch(error => console.error('Error:', error));
     }
 
     onTaskCompleted = () => {
@@ -88,15 +75,7 @@ class LeftSideWidget extends React.Component {
     selectItem = (index) => {
         this.setState({ selectedIndex: index });
     }
-    /*
-    componentDidUpdate(prevProps, prevState) {
-        if (prevState.schedule !== this.state.schedule) {
-            console.log("This is the updated schedule: " + this.state.schedule);
-        }
-    }
-    */
-
-    
+   
     render() {
         return (
             <div className="left-side-widget">
@@ -108,7 +87,7 @@ class LeftSideWidget extends React.Component {
                 </select>
                 <div>
                     <label>Schedule:</label>
-                    <ListWidget ref={this.listWidgetRef} items={this.state.schedule} onSelect={this.selectItem} selectedIndex={this.state.selectedIndex} />
+                    <ListWidget ref={this.listWidgetRef} onSelect={this.selectItem} selectedIndex={this.state.selectedIndex} />
                 </div>
                 <div>
                     <label>Start:</label>

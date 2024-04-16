@@ -3,6 +3,7 @@ from flask import Flask, jsonify, request
 from Graph import Graph
 from flask_cors import CORS
 
+'''
 app = Flask(__name__)
 CORS(app)
 
@@ -24,3 +25,4 @@ def optimize_schedule():
   
 if __name__ == '__main__':
     app.run(debug=True, port=5000)
+'''

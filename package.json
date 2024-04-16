@@ -17,7 +17,7 @@
 
     "start-client": "react-scripts start",
     "start-api": "python src/Connection.py",
-    "start": "concurrently --kill-others --prefix \"[{name}]\" --names \"REACT,FLASK\" \"npm run start-client\" \"npm run start-api\"",
+    "start": "npm start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"

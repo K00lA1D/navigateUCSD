@@ -2,7 +2,7 @@ import React from 'react';
 import ListWidget from './ListWidget.js';
 import locationOptions from './Data.js';
 import Graph from './Graph.js';
-//import Thread from './Thread.js';
+import Thread from './Thread.js';
 
 class LeftSideWidget extends React.Component {
     constructor(props) {
@@ -47,6 +47,29 @@ class LeftSideWidget extends React.Component {
             console.log("Please add items to your schedule");
             return;
         }
+        console.log("Running the algorithm")
+
+        // Simulate asynchronous execution with setTimeout
+        setTimeout(() => {
+            try {
+                // Assuming startLocation and the elements array are properly set
+                const startLocation = this.state.startLocation;
+                const schedule = this.listWidgetRef.current.state.elements;
+                
+                // Calling optimize_schedule directly
+                const [totalDistance, fullPath] = this.graph.optimizeSchedule(startLocation, schedule);
+                
+                // Log the result or do something with it
+                console.log('Response:', {totalDistance, fullPath});
+                console.log('Thread finished with result:', {totalDistance, fullPath});
+                
+                // Call the onTaskCompleted function when done
+                this.onTaskCompleted();
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        }, 0); // setTimeout with 0 delay to defer execution to the event loop
+        /*
         fetch('http://localhost:3000/optimize_schedule', {
             method: 'POST',
             headers: {
@@ -58,14 +81,13 @@ class LeftSideWidget extends React.Component {
             }),
         })
         .then(response => response.json())
-        /*
         .then(result => {
             console.log('Response:', result);
             console.log('Thread finished with result:', result);
             this.onTaskCompleted();
         })
-        */
         .catch(error => console.error('Error:', error));
+        */
     }
 
     onTaskCompleted = () => {

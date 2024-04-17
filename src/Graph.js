@@ -43,13 +43,13 @@ class Graph {
         nodes.Seventh.adjacent = new Map([[nodes.Rady, 1], [nodes.CafeV, 1]]);
         nodes.CafeV.adjacent = new Map([[nodes.ERC, 1], [nodes.Seventh, 1]]);
         nodes.ERC.adjacent = new Map([[nodes.CafeV, 1], [nodes.RIMAC, 1], [nodes.Marshall, 1], [nodes.Rady, 1]]);
-        nodes.Rady.adjacent = new Map([[nodes.Seventh, 1], [nodes.RIMAC, 1], [nodes.ERC]]);
+        nodes.Rady.adjacent = new Map([[nodes.Seventh, 1], [nodes.RIMAC, 1], [nodes.ERC, 1]]);
         nodes.RIMAC.adjacent = new Map([[nodes.SuperComp, 1], [nodes.ERC, 1], [nodes.Rady, 1]]);
-        nodes.SuperComp.adjacent = new Map([[nodes.RIMAC, 1], [nodes.SocialScience]]);
+        nodes.SuperComp.adjacent = new Map([[nodes.RIMAC, 1], [nodes.SocialScience, 1]]);
         nodes.Marshall.adjacent = new Map([[nodes.ERC, 1], [nodes.OVT, 0], [nodes.Sixth, 1], [nodes.SocialScience, 1]]);
         nodes.OVT.adjacent = new Map([[nodes.Marshall, 0]]);
         nodes.SocialScience.adjacent = new Map([[nodes.Marshall, 1], [nodes.SuperComp, 1]]);
-        nodes.Sixth.adjacent = new Map([[nodes.Muir, 1], [nodes.Marshall], [nodes.CognitiveScience]]);
+        nodes.Sixth.adjacent = new Map([[nodes.Muir, 1], [nodes.Marshall, 1], [nodes.CognitiveScience, 1]]);
         nodes.CognitiveScience.adjacent = new Map([[nodes.Geisel, 1], [nodes.Sixth, 1]]);
         nodes.Geisel.adjacent = new Map([[nodes.CognitiveScience, 1], [nodes.PriceCenter, 1], [nodes.Jacobs, 1], [nodes.WarrenLecture, 1]]);
         nodes.Jacobs.adjacent = new Map([[nodes.Geisel, 1], [nodes.CSE, 1], [nodes.WarrenLecture, 1], [nodes.FranklinAntonio, 1]]);
@@ -71,13 +71,15 @@ class Graph {
         nodes.York.adjacent = new Map([[nodes.Galbraith, 1], [nodes.Revelle, 1]]);
         nodes.Eighth.adjacent = new Map([[nodes.Revelle, 1], [nodes.Galbraith, 1]]);
 
-        this.node_list = [nodes.CafeV, nodes.CVGym, nodes.Center, nodes.CognitiveScience, 
+
+        this.nodeList = [nodes.CafeV, nodes.CVGym, nodes.Center, nodes.CognitiveScience, 
             nodes.CSE, nodes.ERC, nodes.Eighth, nodes.FranklinAntonio, 
             nodes.Jacobs, nodes.Galbraith, nodes.Geisel, nodes.MainGym, nodes.Mandeville, 
             nodes.Marshall, nodes.Muir, nodes.OVT, nodes.PepperCanyon, nodes.Pines, 
             nodes.PriceCenter, nodes.Rady, nodes.Revelle, nodes.RIMAC, 
             nodes.Seventh, nodes.Sixth, nodes.SocialScience, nodes.SuperComp,
             nodes.Warren, nodes.WarrenLecture, nodes.York,  nodes.Degrees64]
+ 
 
         let nodesMap = new Map();
 
@@ -102,17 +104,24 @@ class Graph {
         });
         distances[startName] = 0;
         let pq = [[0, startName]];
+
+        //console.log("nodeList : ")
+        //for (let i = 0; i < this.nodeList.length; i++) {
+          //  console.log(this.nodeList[i]); // Prints each element in the array
+        //}
     
         while (pq.length) {
             pq.sort((a, b) => a[0] - b[0]); // This emulates a priority queue in JavaScript.
             let [currentDistance, currentNodeName] = pq.shift();
             // console.log(`Current node: ${currentNodeName}, distance: ${currentDistance}`);
+            //console.log("NodeList : " + this.nodeList);
             let currentNode = this.nodeList.find(node => node.name === currentNodeName);
-    
+            
+            //console.log("currentNode : " + currentNode);
             if (currentDistance > distances[currentNodeName]) {
                 continue;
             }
-    
+            
             currentNode.adjacent.forEach((weight, neighbor) => {
                 let distance = currentDistance + weight;
                 // console.log(`  Checking neighbor: ${neighbor.name}, distance: ${distance}`);
@@ -177,6 +186,7 @@ class Graph {
                     let path = [currentLocation];
                     let distance = 0;
                 } else {
+                    console.log("Being fed into findclosestLocation: " + currentLocation)
                     let [closestLocation, path, distance] = this.findClosestLocation(currentLocation, item);
     
                     // console.log(`current_location : ${currentLocation}`);

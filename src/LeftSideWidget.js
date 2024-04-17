@@ -47,7 +47,7 @@ class LeftSideWidget extends React.Component {
             console.log("Please add items to your schedule");
             return;
         }
-        console.log("Running the algorithm")
+        //console.log("Running the algorithm")
 
         // Simulate asynchronous execution with setTimeout
         setTimeout(() => {
@@ -60,7 +60,7 @@ class LeftSideWidget extends React.Component {
                 const [totalDistance, fullPath] = this.graph.optimizeSchedule(startLocation, schedule);
                 
                 // Log the result or do something with it
-                console.log('Response:', {totalDistance, fullPath});
+                //console.log('Response:', {totalDistance, fullPath});
                 console.log('Thread finished with result:', {totalDistance, fullPath});
                 
                 // Call the onTaskCompleted function when done

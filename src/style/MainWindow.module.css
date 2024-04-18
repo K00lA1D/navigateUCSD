@@ -1,5 +1,6 @@
 /* MainWindow.css */
 /* This is an example. You may need to adjust styles based on your application's needs. */
+/*
 .split-pane {
     position: relative;
     .Resizer {
@@ -8,16 +9,15 @@
         z-index: 1;
         box-sizing: border-box;
         background-clip: padding-box;
-        width: 10px; /* Width of the resizer */
+        width: 10px; 
         
-        /* Add a hover effect to indicate the resizer can be dragged */
         &:hover {
             transition: all 0.2s ease;
             background: #000;
             opacity: 0.5;
         }
         
-        /* Add a grip inside the resizer for visual affordance */
+
         &::after {
             content: '';
             display: block;
@@ -32,3 +32,8 @@
         }
     }
 }
+*/x
+.container {
+    color: red;
+    background-color: blue;
+  }

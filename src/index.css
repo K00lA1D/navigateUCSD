@@ -5,6 +5,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: #00629B;
 }
 
 code {
@@ -15,8 +16,8 @@ code {
 span.Resizer.vertical{
 
   cursor: col-resize;
-  width: 20px;
-  background: black;
+  width: 10px;
+  background: #FFCD00;
   min-height: 20px;
 }
 
@@ -25,4 +26,62 @@ span.Resizer.horizontal{
   width: 20px;
   background: black;
   height: 20px;
+}
+
+
+/* Styles for dropdown menus */
+select {
+  padding: 8px 16px;
+  font-size: 16px;
+  background-color: #FFCD00;
+  border: 2px solid #FFCD00;
+  border-radius: 4px;
+  color: white;
+  cursor: pointer;
+}
+
+/*#182B49*/
+
+select:hover {
+  border-color: #C69214;
+  background: #C69214;
+}
+
+select:focus {
+  outline: none;
+  border-color: #0056b3;
+}
+
+/* Optionally style <option> elements for more control */
+option {
+  padding: 8px;
+  background: #FFCD00;
+  color: white;
+}
+
+option:hover{
+  background-color: #C69214;
+  color: white;
+}
+
+
+button {
+  padding: 8px 16px;
+  font-size: 16px;
+  background-color: #FFCD00;
+  border: 2px solid #FFCD00;
+  border-radius: 4px;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.3s, border-color 0.3s;
+}
+
+button:hover {
+  background-color: #C69214;
+  border-color: #C69214;
+}
+
+button:focus {
+  outline: none;
+  border-color: #0056b3;
 }

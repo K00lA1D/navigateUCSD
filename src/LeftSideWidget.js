@@ -2,7 +2,6 @@ import React from 'react';
 import ListWidget from './ListWidget.js';
 import locationOptions from './Data.js';
 import Graph from './Graph.js';
-import Thread from './Thread.js';
 
 class LeftSideWidget extends React.Component {
     constructor(props) {

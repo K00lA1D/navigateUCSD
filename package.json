@@ -8,7 +8,7 @@
     "@testing-library/user-event": "^13.5.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-scripts": "5.0.1",
+    "react-scripts": "^5.0.1",
     "react-split": "^2.0.14",
     "react-split-pane": "^0.1.92",
     "web-vitals": "^2.1.4"
@@ -19,8 +19,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
-}
-,
+  },
   "eslintConfig": {
     "extends": [
       "react-app",
@@ -39,7 +38,6 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "http://localhost:5000",
   "devDependencies": {
     "concurrently": "^8.2.2"
   }

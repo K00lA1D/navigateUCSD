@@ -1,17 +1,14 @@
 import React from 'react';
 import './App.css';
 import MainWindow from './MainWindow.js'
+import NavBar from './NavBar.jsx'
 
 function App() {
   return (
-    /*
     <div className="App">
-      <header className="App-header">
-        <p>Hello, World! BBC</p>
-      </header>
+      <NavBar/>
+      <MainWindow/>
     </div>
-    */
-    <MainWindow/>
   );
 }
 

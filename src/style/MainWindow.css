@@ -1,0 +1,10 @@
+/* MainWindow.css */
+
+
+.main-window {
+    height: calc(100vh - 240px);  
+    overflow: auto;  
+    padding: 20px;  
+    background-color: #f8f8f8;  
+  }
+  

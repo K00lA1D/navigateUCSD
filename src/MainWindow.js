@@ -2,6 +2,7 @@ import React from 'react';
 import SplitPane from 'react-split-pane';
 import LeftSideWidget from './LeftSideWidget';
 import RightSideWidget from './RightSideWidget';
+import './style/MainWindow.css'
 
 const MainWindow = () => {
     const [minSizeLeft, setMinSizeLeft] = React.useState(300);
@@ -25,7 +26,7 @@ const MainWindow = () => {
     }, []);
   
     return (
-      <div style={{ height: '100vh' }}>
+      <div className="main-window">
         <SplitPane
           split="vertical"
           minSize={minSizeLeft}
@@ -45,50 +46,3 @@ const MainWindow = () => {
   };
   
   export default MainWindow;
-/*
-class MainWindow extends Component {
-    constructor(props) {
-      super(props);
-      this.state = {
-        currentSize: undefined,
-      };
-    }
-  
-    handleDrag = (newSize) => {
-      // Get the window's width
-      const windowWidth = window.innerWidth;
-  
-      // Calculate 30% and 60% of the window's width
-      const minSize = windowWidth * 0.3;
-      const maxSize = windowWidth * 0.6;
-  
-      // Restrict the size of the pane between 30% and 60% of the window's width
-      if (newSize > minSize && newSize < maxSize) {
-        this.setState({ currentSize: newSize });
-      }
-    }
-  
-    render() {
-      // ... render logic
-  
-      return (
-        <div className={styles.container}>
-          <SplitPane
-            split="vertical"
-            minSize="30%"
-            maxSize="60%"
-            size={this.state.currentSize}
-            onChange={size => this.handleDrag(size)}
-            // If the SplitPane supports onDrag, use it; otherwise, use onChange
-            // onDrag={size => this.handleDrag(size)}
-          >
-            <div><LeftSideWidget /></div>
-            <div><RightSideWidget /></div>
-          </SplitPane>
-        </div>
-      );
-    }
-  }
-  
-  export default MainWindow;
-  */

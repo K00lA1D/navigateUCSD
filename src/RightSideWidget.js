@@ -83,7 +83,7 @@ class RightSideWidget extends React.Component {
           text: (index + 1).toString(),
           position: point.position,
           popup: new Popup({
-            content: `<div style='padding: 10px;'>${point.name}</div>`,
+            content: '',
             pixelOffset: [0, -30]
           })
         });

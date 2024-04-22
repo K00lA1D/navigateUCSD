@@ -1,132 +1,76 @@
-import React from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import ListWidget from './ListWidget.js';
 import locationOptions from './Data.js';
 import Graph from './Graph.js';
+import './style/LeftSideWidget.css'
 
-class LeftSideWidget extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            selectedLocation: locationOptions[0],
-            selectedIndex: null,
-            startLocation: locationOptions[0]
-        };
-        this.listWidgetRef = React.createRef(); // Create the ref here
-        this.graph = new Graph();
-    }
+function LeftSideWidget() {
+    const [selectedLocation, setSelectedLocation] = useState(locationOptions[0]);
+    const [startLocation, setStartLocation] = useState(locationOptions[0]);
+    const [selectedIndex, setSelectedIndex] = useState(null);
+    const [showOverlay, setShowOverlay] = useState(false);
+    const [overlayAction, setOverlayAction] = useState(''); // 'add' or 'edit'
+    const listWidgetRef = useRef();
+    const graph = useRef(new Graph());
 
-    handleLocationChange = (event) => {
-        const selectedLocation = event.target.value;
-        if (selectedLocation !== this.state.startLocation) {
-            this.setState({ selectedLocation });
-        }
-    }
+    const handleLocationChange = (event) => {
+        setSelectedLocation(event.target.value);
+    };
 
-    handleStartLocationChange = (event) => {
-        this.setState({ startLocation: event.target.value });
-    }
+    const toggleOverlay = (action) => {
+        setShowOverlay(true);
+        setOverlayAction(action);
+    };
 
-    addRow = () => {
-        const location = this.state.selectedLocation;
-        if (location && location !== this.state.startLocation) {
-            this.listWidgetRef.current.add(location);
-        }
-    }
+    const hideOverlay = () => {
+        setShowOverlay(false);
+        setOverlayAction('');
+    };
 
-    deleteRow = () => {
-        this.listWidgetRef.current.delete();
-    }
+    const Overlay = () => (
+        <div className="overlay">
+            <h4>{overlayAction === 'add' ? 'Add Location' : 'Edit Location'}</h4>
+            <select onChange={handleLocationChange} value={selectedLocation}>
+                {locationOptions.map((location, index) => (
+                    <option key={index} value={location}>{location}</option>
+                ))}
+            </select>
+            <button onClick={hideOverlay}>Back</button>
+        </div>
+    );
 
-    clearTable = () => {
-        this.listWidgetRef.current.clear();
-    }
-
-    runAlgorithm = () => {
-        if (!this.listWidgetRef.current.state.elements.length) {
-            console.log("Please add items to your schedule");
-            return;
-        }
-        //console.log("Running the algorithm")
-
-        // Simulate asynchronous execution with setTimeout
-        setTimeout(() => {
-            try {
-                // Assuming startLocation and the elements array are properly set
-                const startLocation = this.state.startLocation;
-                const schedule = this.listWidgetRef.current.state.elements;
-                
-                // Calling optimize_schedule directly
-                const [totalDistance, fullPath] = this.graph.optimizeSchedule(startLocation, schedule);
-                
-                // Log the result or do something with it
-                //console.log('Response:', {totalDistance, fullPath});
-                console.log('Thread finished with result:', {totalDistance, fullPath});
-                
-                // Call the onTaskCompleted function when done
-                this.onTaskCompleted();
-            } catch (error) {
-                console.error('Error:', error);
-            }
-        }, 0); // setTimeout with 0 delay to defer execution to the event loop
-        /*
-        fetch('http://localhost:3000/optimize_schedule', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                startLocation: this.state.startLocation,
-                schedule: this.listWidgetRef.current.state.elements,
-            }),
-        })
-        .then(response => response.json())
-        .then(result => {
-            console.log('Response:', result);
-            console.log('Thread finished with result:', result);
-            this.onTaskCompleted();
-        })
-        .catch(error => console.error('Error:', error));
-        */
-    }
-
-    onTaskCompleted = () => {
-        console.log("The algorithm has finished running");
-    }
-
-    selectItem = (index) => {
-        this.setState({ selectedIndex: index });
-    }
-   
-    render() {
-        return (
-            <div className="left-side-widget">
-                <h3>LOCATIONS</h3>
-                <select onChange={this.handleLocationChange} value={this.state.selectedLocation}>
+    return (
+        <div className="left-side-widget">
+            {showOverlay && <Overlay />}
+            <h3>LOCATIONS</h3>
+            <select onChange={handleLocationChange} value={selectedLocation}>
+                {locationOptions.map((location, index) => (
+                    <option key={index} value={location}>{location}</option>
+                ))}
+            </select>
+            <div>
+                <label>Schedule:</label>
+                <ListWidget ref={listWidgetRef} onSelect={setSelectedIndex} selectedIndex={selectedIndex} />
+            </div>
+            <div>
+                <label>Start:</label>
+                <select onChange={handleLocationChange} value={startLocation}>
                     {locationOptions.map((location, index) => (
                         <option key={index} value={location}>{location}</option>
                     ))}
                 </select>
-                <div>
-                    <label>Schedule:</label>
-                    <ListWidget ref={this.listWidgetRef} onSelect={this.selectItem} selectedIndex={this.state.selectedIndex} />
-                </div>
-                <div>
-                    <label>Start:</label>
-                    <select onChange={this.handleStartLocationChange} value={this.state.startLocation}>
-                        {locationOptions.map((location, index) => (
-                            <option key={index} value={location}>{location}</option>
-                        ))}
-                    </select>
-                </div>
-                <div>
-                    <button onClick={this.addRow}>Add</button>
-                    <button onClick={this.deleteRow}>Delete</button>
-                    <button onClick={this.clearTable}>Clear</button>
-                    <button onClick={this.runAlgorithm}>Run</button>
-                </div>
             </div>
-        );
-    }
+            <div>
+                <button onClick={() => toggleOverlay('add')}>Add</button>
+                <button onClick={() => toggleOverlay('edit')}>Edit</button>
+                <button onClick={hideOverlay}>Delete</button>
+                <button onClick={hideOverlay}>Clear</button>
+                <button onClick={hideOverlay}>Run</button>
+            </div>
+        </div>
+    );
 }
 
 export default LeftSideWidget;
+
+// Add corresponding CSS for overlay styling and sliding effect

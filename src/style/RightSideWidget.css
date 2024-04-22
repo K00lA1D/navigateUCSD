@@ -1,0 +1,4 @@
+.right-side-widget {
+    height: 100vh;
+    position: relative; /* Ensure it is positioned correctly */
+}

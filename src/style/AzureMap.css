@@ -1,0 +1,7 @@
+.azure-map-popup-container .atlas-popup-close-button {
+    display: none !important;
+}
+
+.azure-maps-style-picker .style-picker-item .style-picker-item-label {
+    color: black !important;
+}

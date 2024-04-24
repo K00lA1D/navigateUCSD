@@ -1,14 +1,12 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState, forwardRef, useImperativeHandle } from 'react';
 import * as atlas from 'azure-maps-control';
 import 'azure-maps-control/dist/atlas.min.css';
-import './style/AzureMap.css'
+import './style/AzureMap.css';
 
-const AzureMap = ({ subscriptionKey }) => {
+const AzureMap = forwardRef(({ subscriptionKey }, ref) => {
     const mapRef = useRef(null);
-    const [selectedType, setSelectedType] = useState(null); // Store only one type at a time
-    const [map, setMap] = useState(null); // State to store the map instance
-    const [markers, setMarkers] = useState([]); // State to store all markers
-
+    const [map, setMap] = useState(null);
+    const [markers, setMarkers] = useState([]);
     const points = [
         { position: [-117.240843791937, 32.8756844350981], name: 'Revelle College', type: ["College"]},
         { position: [-117.23281088454, 32.8825866510293], name: 'Warren College', type: ["College"] },
@@ -49,9 +47,14 @@ const AzureMap = ({ subscriptionKey }) => {
         { position: [-117.24107355780056, 32.88018997890346], name: 'School of Arts and Humanities at UC San Diego', type: ['Hall']}
     ];
 
-    const toggleMarkersByType = (type) => {
-        setSelectedType(type);
-    };
+    useImperativeHandle(ref, () => ({
+        toggleMarkersByType: (type) => {
+            markers.forEach(marker => {
+                const isVisible = marker.types.includes(type);
+                marker.setOptions({ visible: isVisible });
+            });
+        }
+    }));
 
     useEffect(() => {
         if (!map) {
@@ -101,14 +104,6 @@ const AzureMap = ({ subscriptionKey }) => {
                 setMarkers(newMarkers);
             });
 
-            // Add the map style picker control
-            newMap.controls.add(new atlas.control.StyleControl({
-                mapStyles: 'all',
-                layout: 'list' // Display the style options as a list
-            }), {
-                position: 'top-right'
-            });
-
             setMap(newMap);
         }
 
@@ -119,28 +114,11 @@ const AzureMap = ({ subscriptionKey }) => {
         };
     }, [subscriptionKey]); // Only run on initial mount
 
-    useEffect(() => {
-        // Update markers' visibility based on the selected type
-        markers.forEach(marker => {
-            const isVisible = marker.types.includes(selectedType);
-            marker.setOptions({ visible: isVisible });
-        });
-    }, [selectedType, markers]); // This will update marker visibility whenever selectedType changes
-
     return (
         <div style={{ height: '100vh', width: '100%', position: 'relative' }}>
             <div ref={mapRef} style={{ height: '100%', width: '100%' }}></div>
-            <div style={{ position: 'absolute', top: 10, left: 10, zIndex: 1 }}>
-                {/* Buttons to toggle marker types */}
-                <button onClick={() => toggleMarkersByType('College')}>Colleges</button>
-                <button onClick={() => toggleMarkersByType('Gym')}>Gyms</button>
-                <button onClick={() => toggleMarkersByType('Food')}>Food</button>
-                <button onClick={() => toggleMarkersByType('Study')}>Study Areas</button>
-                <button onClick={() => toggleMarkersByType('Hall')}>Halls</button>
-                <button onClick={() => toggleMarkersByType('Other')}>Others</button>
-            </div>
         </div>
     );
-}
+});
 
 export default AzureMap;

@@ -69,4 +69,6 @@ const points = [
 ];
 
 
+export const types = ["College", "Hall", "Food", "Study", "Gym", "Other"]
+
 export default locationOptions;

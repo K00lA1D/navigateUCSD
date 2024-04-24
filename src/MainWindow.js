@@ -1,14 +1,14 @@
-import React from 'react';
+import React, { useState } from 'react';
 import SplitPane from 'react-split-pane';
 import LeftSideWidget from './LeftSideWidget';
 import RightSideWidget from './RightSideWidget';
 import './style/MainWindow.css';
 
-// If RightSideWidget needs to receive a ref, ensure you forward it correctly
-
 const MainWindow = () => {
     const [minSizeLeft, setMinSizeLeft] = React.useState(300);
     const [maxSizeRight, setMaxSizeRight] = React.useState(window.innerWidth - 300);
+
+    const azureMapRef = React.useRef();
   
     React.useEffect(() => {
       const handleResize = () => {
@@ -22,7 +22,6 @@ const MainWindow = () => {
       return () => window.removeEventListener('resize', handleResize);
     }, []);
   
-      /*
     return (
       <div className="main-window">
         <SplitPane
@@ -30,37 +29,17 @@ const MainWindow = () => {
           minSize={minSizeLeft}
           maxSize={maxSizeRight}
           defaultSize={parseInt(minSizeLeft, 10)}
-          paneStyle={{ overflow: 'auto' }}
-        >
+          paneStyle={{ overflow: 'auto' }}>
           <div>
-            <LeftSideWidget />
+            <LeftSideWidget toggleMarkersByType={type => azureMapRef.current.toggleMarkersByType(type)} />
           </div>
           <div>
-            <RightSideWidget />
-          </div>
-        </SplitPane>
-      </div>
-    );
-    */
-
-    return (
-      <div className="main-window">
-        <SplitPane
-          split="vertical"
-          minSize={minSizeLeft}
-          maxSize={maxSizeRight}
-          defaultSize={parseInt(minSizeLeft, 10)}
-          paneStyle={{ overflow: 'auto' }}
-        >
-          <div>
-            <LeftSideWidget />
-          </div>
-          <div>
-            <RightSideWidget />
+            <RightSideWidget azureMapRef={azureMapRef} />
           </div>
         </SplitPane>
       </div>
     );
 };
+
 
 export default MainWindow;

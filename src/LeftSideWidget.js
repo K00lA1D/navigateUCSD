@@ -1,21 +1,29 @@
 import React, { useState, useRef, useEffect } from 'react';
 import ListWidget from './ListWidget.js';
-import locationOptions from './Data.js';
-import Graph from './Graph.js';
+import {locationOptions, types } from './Data.js';
 import './style/LeftSideWidget.css'
 
-function LeftSideWidget() {
+function LeftSideWidget({ toggleMarkersByType }) {
     const [selectedLocation, setSelectedLocation] = useState(locationOptions[0]);
     const [startLocation, setStartLocation] = useState(locationOptions[0]);
     const [selectedIndex, setSelectedIndex] = useState(null);
+    const [selectedType, setSelectedType] = useState(null);
     const [showOverlay, setShowOverlay] = useState(false);
     const [overlayAction, setOverlayAction] = useState(''); // 'add' or 'edit'
     const listWidgetRef = useRef();
-    const graph = useRef(new Graph());
 
     const handleLocationChange = (event) => {
         setSelectedLocation(event.target.value);
     };
+
+    const handleStartLocationChange = (event) => {
+        setStartLocation(event.target.value);
+    }
+
+    const handleTypeChange = (event) => {
+        setSelectedType(event.target.value);
+        toggleMarkersByType(event.target.value);
+    }
 
     const toggleOverlay = (action) => {
         setShowOverlay(true);
@@ -30,8 +38,8 @@ function LeftSideWidget() {
     const Overlay = () => (
         <div className="overlay">
             <h4>{overlayAction === 'add' ? 'Add Location' : 'Edit Location'}</h4>
-            <select onChange={handleLocationChange} value={selectedLocation}>
-                {locationOptions.map((location, index) => (
+            <select onChange={handleTypeChange} value={selectedType}>
+                {types.map((location, index) => (
                     <option key={index} value={location}>{location}</option>
                 ))}
             </select>
@@ -54,7 +62,7 @@ function LeftSideWidget() {
             </div>
             <div>
                 <label>Start:</label>
-                <select onChange={handleLocationChange} value={startLocation}>
+                <select onChange={handleStartLocationChange} value={startLocation}>
                     {locationOptions.map((location, index) => (
                         <option key={index} value={location}>{location}</option>
                     ))}

@@ -1,4 +1,4 @@
-.overlay {
+.Overlay {
     position: absolute;
     top: 0;
     right: 0;
@@ -11,7 +11,81 @@
     z-index: 100;
 }
 
-.left-side-widget {
-    position: relative;
-    overflow: hidden;
+.LeftSideWidget {
+    display: grid;
+    grid-template-rows: auto 1fr auto; /* Defines rows for the start, ListWidget, and buttons */
+    gap: 10px; /* Gap between rows */
+    padding: 10px;
+}
+
+/* This will ensure that the container of the ListWidget is taking the full available width */
+.LeftSideWidget > div:nth-child(2) {
+    grid-column: 1 / -1;
+}
+
+/* Style for the buttons container, which should now follow the width of the ListWidget */
+.LeftSideWidget > div:nth-child(3) {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr); /* Creates five equal-width columns */
+    gap: 10px; /* Gap between buttons */
+}
+
+/* Styles for dropdown menus */
+select {
+    padding: 8px 16px;
+    font-size: 16px;
+    background-color: #FFCD00;
+    border: 2px solid #CCAA00;;
+    border-radius: 4px;
+    color: white;
+    cursor: pointer;
+}
+
+/*#182B49*/
+
+select:hover {
+    border-color: #C69214;
+    background: #C69214;
+}
+
+select:focus {
+    outline: none;
+    border-color: #0056b3;
+}
+
+option {
+    padding: 8px;
+    background: #FFCD00;
+    color: white;
+}
+
+option:hover{
+    background-color: #C69214;
+    color: white;
+}
+
+
+
+
+button {
+    width: 100%;
+    padding: 8px 16px;
+    font-size: 16px;
+    background-color: #FFCD00;
+    border: 2px solid #CCAA00;
+    border-radius: 4px;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s, border-color 0.3s;
+}
+
+button:hover {
+    background-color: #C69214;
+    border-color: #C69214;
+    transform: translateY(-5px);
+}
+
+button:focus {
+    outline: none;
+    border-color: #0056b3;
 }

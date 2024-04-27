@@ -1,9 +1,17 @@
 /* MainWindow.css */
 
 
-.main-window {
-    height: calc(100vh - 240px);   
+.MainWindow {
+    height: calc(100vh);   
     padding: 20px;  
-    background-color: #f8f8f8;  
-  }
+    background-color: grey;  
+    opacity: 0;
+    transform: translateX(-300px);
+    transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+}
+
+.MainWindow.visible{
+  opacity: 1;
+  transform: translateX(0);
+}
   

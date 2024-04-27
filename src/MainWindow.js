@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import SplitPane from 'react-split-pane';
 import LeftSideWidget from './LeftSideWidget';
 import RightSideWidget from './RightSideWidget';
+import { useInView } from 'react-intersection-observer';
 import './style/MainWindow.css';
 
 const MainWindow = () => {
@@ -9,6 +10,10 @@ const MainWindow = () => {
     const [maxSizeRight, setMaxSizeRight] = React.useState(window.innerWidth - 300);
 
     const azureMapRef = React.useRef();
+    const { ref, inView } = useInView({
+      triggerOnce: false,
+      threshold: 0.1  // Adjust as needed
+    });
   
     React.useEffect(() => {
       const handleResize = () => {
@@ -23,7 +28,7 @@ const MainWindow = () => {
     }, []);
   
     return (
-      <div className="main-window">
+      <div className={`MainWindow ${inView ? 'visible' : ''}`} ref={ref}>
         <SplitPane
           split="vertical"
           minSize={minSizeLeft}

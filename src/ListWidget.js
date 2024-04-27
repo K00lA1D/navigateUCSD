@@ -1,4 +1,5 @@
 import React from 'react';
+import './style/ListWidget.css'
 
 class ListWidget extends React.Component {
   constructor(props) {
@@ -48,20 +49,12 @@ class ListWidget extends React.Component {
 
   render() {
 
-    const listWidgetStyle = {
-      minHeight: '50vh',
-      maxHeight: '50vh', // 50% of the viewport height
-      overflowY: 'auto', // Add a scrollbar when content overflows  
-      border: '1px solid #ccc', // Optional, adds a border for visual structure
-      padding: '5px', // Optional, adds some spacing inside the div
-    };
-
     const selectedStyle = {
       backgroundColor: 'lightblue', // the color you want for the selection
     };
 
     return (
-      <div style={listWidgetStyle}>
+      <div className = "ListWidget">
         <ul>
           {this.state.elements.map((item, index) => (
             <li key={index} 

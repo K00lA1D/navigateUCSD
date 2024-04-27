@@ -36,7 +36,7 @@ function LeftSideWidget({ toggleMarkersByType }) {
     };
 
     const Overlay = () => (
-        <div className="overlay">
+        <div className="Overlay">
             <h4>{overlayAction === 'add' ? 'Add Location' : 'Edit Location'}</h4>
             <select onChange={handleTypeChange} value={selectedType}>
                 {types.map((location, index) => (
@@ -48,19 +48,9 @@ function LeftSideWidget({ toggleMarkersByType }) {
     );
 
     return (
-        <div className="left-side-widget">
+        <div className="LeftSideWidget">
             {showOverlay && <Overlay />}
-            <h3>LOCATIONS</h3>
-            <select onChange={handleLocationChange} value={selectedLocation}>
-                {locationOptions.map((location, index) => (
-                    <option key={index} value={location}>{location}</option>
-                ))}
-            </select>
-            <div>
-                <label>Schedule:</label>
-                <ListWidget ref={listWidgetRef} onSelect={setSelectedIndex} selectedIndex={selectedIndex} />
-            </div>
-            <div>
+            <div >
                 <label>Start:</label>
                 <select onChange={handleStartLocationChange} value={startLocation}>
                     {locationOptions.map((location, index) => (
@@ -68,12 +58,17 @@ function LeftSideWidget({ toggleMarkersByType }) {
                     ))}
                 </select>
             </div>
+
             <div>
-                <button onClick={() => toggleOverlay('add')}>Add</button>
-                <button onClick={() => toggleOverlay('edit')}>Edit</button>
-                <button onClick={hideOverlay}>Delete</button>
-                <button onClick={hideOverlay}>Clear</button>
-                <button onClick={hideOverlay}>Run</button>
+                <label>Schedule:</label>
+                <ListWidget ref={listWidgetRef} onSelect={setSelectedIndex} selectedIndex={selectedIndex} />
+            </div>
+            <div>
+                <button className= "" onClick={() => toggleOverlay('add')}>Add</button>
+                <button className= "" onClick={() => toggleOverlay('edit')}>Edit</button>
+                <button className= "" onClick={hideOverlay}>Delete</button>
+                <button className= "" onClick={hideOverlay}>Clear</button>
+                <button className= "" onClick={hideOverlay}>Run</button>
             </div>
         </div>
     );
@@ -81,4 +76,4 @@ function LeftSideWidget({ toggleMarkersByType }) {
 
 export default LeftSideWidget;
 
-// Add corresponding CSS for overlay styling and sliding effect
+

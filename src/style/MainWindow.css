@@ -3,15 +3,8 @@
 
 .MainWindow {
     height: calc(100vh);   
-    padding: 20px;  
-    background-color: grey;  
-    opacity: 0;
-    transform: translateX(-300px);
-    transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+    padding: 0px;  
+    background-color: grey; 
 }
 
-.MainWindow.visible{
-  opacity: 1;
-  transform: translateX(0);
-}
   

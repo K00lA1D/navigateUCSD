@@ -2,35 +2,81 @@
     position: absolute;
     top: 0;
     right: 0;
-    width: 100%;
-    height: 100%;
+    max-width: 300px;
+    height: auto;
     background-color: white;
     box-shadow: -2px 0 5px rgba(0,0,0,0.5);
-    transition: transform 0.3s ease-in-out;
     transform: translateX(0);
+    transition: transform 0.25s ease-in-out;
     z-index: 100;
+}
+
+.Overlay.active{
+    transform: translateX(100%);
 }
 
 .LeftSideWidget {
     display: grid;
-    grid-template-rows: auto 1fr auto; /* Defines rows for the start, ListWidget, and buttons */
-    gap: 10px; /* Gap between rows */
+    grid-template-rows: auto 1fr auto; 
+}
+
+.LeftSideWidget {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: auto;
+    background-color: rgba(255, 255, 255, 0.9);
+    z-index: 10;
+    transform: translateX(-100%); /* Initial state off-screen */
+    transition: transform 0.25s ease-out;
+}
+
+.LeftSideWidget.hidden {
+    transform: translateX(-100%);
+}
+
+.Start-Container{
+    border: 5px solid #A9A9A9;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-radius: 5px;
+}
+
+.List-Container{
+    border: 5px solid #A9A9A9;
+    border-radius: 5px;
+}
+
+.Toggle {
+    position: absolute;
+    right: -50px; /* Adjust as necessary */
+    top: 10px; /* Adjust as necessary */
+    width: 50px; /* Adjust as necessary */
+    height: 50px; /* Adjust as necessary */
+    background-color: #000; /* Adjust color as necessary */
+    color: #fff; /* Adjust text color as necessary */
+    cursor: pointer;
+}
+
+.LeftSideWidget {
+    display: grid;
+    grid-template-rows: auto 1fr auto; 
+    gap: 10px;
     padding: 10px;
 }
 
-/* This will ensure that the container of the ListWidget is taking the full available width */
 .LeftSideWidget > div:nth-child(2) {
     grid-column: 1 / -1;
 }
 
-/* Style for the buttons container, which should now follow the width of the ListWidget */
+
 .LeftSideWidget > div:nth-child(3) {
     display: grid;
-    grid-template-columns: repeat(5, 1fr); /* Creates five equal-width columns */
-    gap: 10px; /* Gap between buttons */
+    grid-template-columns: repeat(5, 1fr);
+    gap: 10px;
 }
 
-/* Styles for dropdown menus */
 select {
     padding: 8px 16px;
     font-size: 16px;
@@ -40,8 +86,6 @@ select {
     color: white;
     cursor: pointer;
 }
-
-/*#182B49*/
 
 select:hover {
     border-color: #C69214;
@@ -64,9 +108,6 @@ option:hover{
     color: white;
 }
 
-
-
-
 button {
     width: 100%;
     padding: 8px 16px;
@@ -82,7 +123,6 @@ button {
 button:hover {
     background-color: #C69214;
     border-color: #C69214;
-    transform: translateY(-5px);
 }
 
 button:focus {

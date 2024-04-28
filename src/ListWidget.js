@@ -2,18 +2,22 @@ import React from 'react';
 import './style/ListWidget.css'
 
 class ListWidget extends React.Component {
+
   constructor(props) {
     super(props);
+    this.handleClick = this.handleClick.bind(this); // Ensure it's properly bound
+
     this.state = {
       elements: [],
       selected: null,
-      selectedIndex: -5,
+      selectedtype: "",
+      selectedIndex: -1,
     };
   }
 
-  add = (item) => {
+  add = (item, type) => {
     this.setState((prevState) => ({
-      elements: [...prevState.elements, item],
+      elements: [...prevState.elements, [item, type]],
     }));
   };
 
@@ -22,9 +26,38 @@ class ListWidget extends React.Component {
       this.setState(prevState => ({
         elements: prevState.elements.filter((_, i) => i !== prevState.selectedIndex),
         selected: null,
-        selectedIndex: -5
+        selectedIndex: -1 // -1 is a more common convention for 'no selection'
       }));
     }
+    else{
+      console.log("Invalid index for delete operation");
+    }
+  };
+
+  edit = (index, newItem, newType) => {
+    if (index >= 0 && index < this.state.elements.length) {
+      this.setState(prevState => ({
+        elements: prevState.elements.map((item, i) => {
+          if (i === index) {
+
+            return [newItem, newType];
+          } else {
+
+            return item;
+          }
+        }),
+        selected: [newItem, newType], 
+        selectedIndex: index 
+      }));
+    } else {
+      console.log('Invalid index for edit operation');
+    }
+
+    this.setState({
+      selected: null,
+      selectedtype: "",
+      selectedIndex: -1,
+    });
   };
 
   clear = () => {
@@ -34,16 +67,27 @@ class ListWidget extends React.Component {
   };
 
   handleClick = (index) => {
+  
     console.log("Something was clicked")
+    const selectedItem = this.state.elements[index][0];
+    const selectedType = this.state.elements[index][1];
+
+
     this.setState({
-      selected: this.state.elements[index],
+      selected: selectedItem,
+      selectedType: selectedType,
       selectedIndex: index,
     });
+
+    console.log("selectedItem : " + selectedItem);
+    console.log("selectedType : " + selectedType);
+    console.log("index : " + index);
+    this.props.parentHandleClick(selectedItem, selectedType, index);
   };
 
   componentDidUpdate(prevProps, prevState) {
     if (prevState.elements !== this.state.elements) {
-        console.log("Elements: " + this.state.elements);
+        console.log("Elements : " + this.state.elements);
     }
 }
 
@@ -56,11 +100,11 @@ class ListWidget extends React.Component {
     return (
       <div className = "ListWidget">
         <ul>
-          {this.state.elements.map((item, index) => (
+          {this.state.elements.map(([location, type], index) => (
             <li key={index} 
             onClick={() => this.handleClick(index)}
             style={this.state.selectedIndex === index ? selectedStyle : null}>
-              {item}
+              {location} - {type}
             </li>
           ))}
         </ul>

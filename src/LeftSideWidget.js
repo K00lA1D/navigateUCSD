@@ -32,9 +32,8 @@ function LeftSideWidget({ toggleMarkersByType }) {
 
     const handleTypeChange = (event) => {
         const type = event.target.value;
-
         if(type == ""){
-            console.log("This type is empty")
+            //console.log("This type is empty")
             setSelectedType(event.target.value);
             setSelectedLocation("");
         }
@@ -46,38 +45,29 @@ function LeftSideWidget({ toggleMarkersByType }) {
     }
 
     const handleClearSelections = () => {
-        
         setFocusedLocation('');
         setFocusedType('');
         setFocusedIndex(-1);
     }
 
     const parentHandleClick = (location, type, index) => {
-        console.log("location : " + location);
-        console.log("Type : " + type);
-        console.log("index : " + index);
+        //console.log("location : " + location);
+        //console.log("Type : " + type);
+        //console.log("index : " + index);
         setFocusedLocation(location);
         setFocusedType(type);
         setFocusedIndex(index);
     };
 
-
     const handleShowOverlay = (action) => {
-
-        console.log("In the handleshowOverlay function")
+        //console.log("In the handleshowOverlay function")
         if(action == 'add'){
             console.log("were adding here");
             handleClearSelections();
         }
-        else{
-            console.log("were editing here");
-            console.log("focusedLocation : " + focusedLocation);
-            console.log("focusedType: " + focusedType);
-            console.log("focusedIndex : " + focusedIndex);
-            setSelectedLocation(focusedLocation);
-            setSelectedType(focusedType);
-            setSelectedIndex(focusedIndex);
-        }
+        setSelectedLocation(focusedLocation);
+        setSelectedType(focusedType);
+        setSelectedIndex(focusedIndex);
 
         setIsVisible(false); // Trigger the LeftSideWidget to slide out
 
@@ -91,7 +81,6 @@ function LeftSideWidget({ toggleMarkersByType }) {
 
     const hideOverlay = () => {
         setIsOverlayAnimating(false); // Trigger overlay slide-out
-
         handleClearSelections();
         // Wait for the overlay to finish sliding out
         setTimeout(() => {
@@ -99,7 +88,6 @@ function LeftSideWidget({ toggleMarkersByType }) {
             setIsVisible(true); // Show LeftSideWidget after overlay hides
         }, 250); // Match this timeout to the transition duration of Overlay
     };
-
 
     const addLocation = () => {
         if(selectedLocation == ""){
@@ -131,7 +119,7 @@ function LeftSideWidget({ toggleMarkersByType }) {
         console.log("selectedType : " + selectedType);
         console.log("selectedLocation : " + selectedLocation);
 
-        listWidgetRef.current.edit(focusedIndex, selectedType, selectedLocation);
+        listWidgetRef.current.edit(focusedIndex, selectedLocation, selectedType);
         hideOverlay();
     }
 
@@ -204,13 +192,13 @@ function LeftSideWidget({ toggleMarkersByType }) {
 
     const widgetRef = useRef();
     const [isVisible, setIsVisible] = useState(false); // Start hidden
-    const [widgetWidth, setWidgetWidth] = useState(0);
+    //const [widgetWidth, setWidgetWidth] = useState(0);
 
     useEffect(() => {
         // Delay the initial animation just enough to ensure the initial state is applied
         const timer = setTimeout(() => {
             if (widgetRef.current) {
-                setWidgetWidth(widgetRef.current.offsetWidth);
+                //setWidgetWidth(widgetRef.current.offsetWidth);
                 setIsVisible(true); // Animate the widget into view
             }
         }, 50); // A minimal timeout
@@ -221,13 +209,13 @@ function LeftSideWidget({ toggleMarkersByType }) {
     const toggleVisibility = () => {
         // This toggles the visibility
         setIsVisible(!isVisible);
+        /*<div ref={widgetRef} className="LeftSideWidget" style={isVisible ? { transform: 'translateX(0)' } : {}}>*/
     };
 
     return (
-        
-        <div ref={widgetRef} className="LeftSideWidget" style={isVisible ? { transform: 'translateX(0)' } : {}}>
+        <div ref={widgetRef} className={`LeftSideWidget ${!isVisible ? 'hidden' : ''}`}>
             {showOverlay && <Overlay />}
-            <h2>NavigateUCSD</h2>
+            <h2 className="Header" >NavigateUCSD</h2>
             <div className="List-Container">
                 <div className="Start-Container">
                     <label>Start:</label>
@@ -255,7 +243,8 @@ function LeftSideWidget({ toggleMarkersByType }) {
             </div>
 
             <div className="Toggle" onClick={toggleVisibility}>
-                {isVisible ? "Hide" : "Show"}
+                {/*isVisible ? "Hide" : "Show"*/}
+                
             </div>
         </div>
     );

@@ -6,7 +6,7 @@
     height: auto;
     background-color: white;
     box-shadow: -2px 0 5px rgba(0,0,0,0.5);
-    transform: translateX(0);
+    transform: translateX(0%);
     transition: transform 0.25s ease-in-out;
     z-index: 100;
 }
@@ -15,9 +15,16 @@
     transform: translateX(100%);
 }
 
+.Header{
+    color: white;
+    text-align:center;
+}
+
 .LeftSideWidget {
     display: grid;
     grid-template-rows: auto 1fr auto; 
+    background: #439BCF;
+    border-radius: 10px 0px 10px 10px;
 }
 
 .LeftSideWidget {
@@ -25,9 +32,8 @@
     top: 0;
     left: 0;
     height: auto;
-    background-color: rgba(255, 255, 255, 0.9);
     z-index: 10;
-    transform: translateX(-100%); /* Initial state off-screen */
+    transform: translateX(0%); /* Initial state off-screen */
     transition: transform 0.25s ease-out;
 }
 
@@ -36,27 +42,34 @@
 }
 
 .Start-Container{
-    border: 5px solid #A9A9A9;
+    border: 5px solid #CCAA00;
     border-top: none;
     border-left: none;
     border-right: none;
-    border-radius: 5px;
+    color: white;
+    background-color:#FFCD00;
+    padding: 0px 10px 0px 10px;
+
 }
 
 .List-Container{
-    border: 5px solid #A9A9A9;
+    border: 5px solid #CCAA00;
     border-radius: 5px;
 }
 
 .Toggle {
     position: absolute;
-    right: -50px; /* Adjust as necessary */
-    top: 10px; /* Adjust as necessary */
-    width: 50px; /* Adjust as necessary */
-    height: 50px; /* Adjust as necessary */
-    background-color: #000; /* Adjust color as necessary */
+    right: -15px; /* Adjust as necessary */
+    top: 0px; /* Adjust as necessary */
+    width: 10px; /* Adjust as necessary */
+    height: 200px; /* Adjust as necessary */
+    background-color: #439BCF; /* Adjust color as necessary */
     color: #fff; /* Adjust text color as necessary */
     cursor: pointer;
+    border: 5px solid #0056b3;
+    border-left: none;
+    border-radius: 0px 10px 10px 0px;
+    text-align:center;
 }
 
 .LeftSideWidget {
@@ -81,7 +94,7 @@ select {
     padding: 8px 16px;
     font-size: 16px;
     background-color: #FFCD00;
-    border: 2px solid #CCAA00;;
+    border: 2px solid #CCAA00;
     border-radius: 4px;
     color: white;
     cursor: pointer;

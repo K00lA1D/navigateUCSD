@@ -19,6 +19,8 @@ class ListWidget extends React.Component {
     this.setState((prevState) => ({
       elements: [...prevState.elements, [item, type]],
     }));
+
+    this.clearSelections();
   };
 
   delete = () => {
@@ -53,12 +55,16 @@ class ListWidget extends React.Component {
       console.log('Invalid index for edit operation');
     }
 
+    this.clearSelections();
+  };
+
+  clearSelections = () => {
     this.setState({
       selected: null,
       selectedtype: "",
       selectedIndex: -1,
     });
-  };
+  }
 
   clear = () => {
     this.setState({
@@ -87,7 +93,7 @@ class ListWidget extends React.Component {
 
   componentDidUpdate(prevProps, prevState) {
     if (prevState.elements !== this.state.elements) {
-        console.log("Elements : " + this.state.elements);
+        console.log("Elements : ",this.state.elements);
     }
 }
 

@@ -31,15 +31,15 @@ function LeftSideWidget({ toggleMarkersByType, animateRoute }) {
     const newStartLocation = event.target.value;
     setStartLocation(newStartLocation);
     listWidgetRef.current.updateStartLocation(newStartLocation); // Call ListWidget's method to update start location
-};
+  };
 
-const handleTransportModeChange = (event) => {
+  const handleTransportModeChange = (event) => {
     setTransportMode(event.target.value);
   };
 
-    const handlePositionsUpdate = (positions) => {
-        setMappedPositions(positions);
-    };
+  const handlePositionsUpdate = (positions) => {
+      setMappedPositions(positions);
+  };
 
   const handleTypeChange = (event) => {
     const type = event.target.value;
@@ -56,9 +56,36 @@ const handleTransportModeChange = (event) => {
       toggleMarkersByType(type);
     }
   }
+
+  const showMessage = (message) => {
+    // Create the message element if it doesn't exist
+    let messageBox = document.getElementById('message-box');
+    if (!messageBox) {
+      messageBox = document.createElement('div');
+      messageBox.id = 'message-box';
+      document.body.appendChild(messageBox);
+    }
+    
+    // Set the message and show the element
+    messageBox.innerText = message;
+    messageBox.style.display = 'block';
+  
+    // Hide the message after 3 seconds
+    setTimeout(() => {
+      messageBox.style.display = 'none';
+    }, 3000);
+  }
   
   const handleRun = () => {
-    animateRoute(mappedPositions, transportMode); // Pass the transport mode
+    console.log("listWidgetRef.current.state.elements.length : " + listWidgetRef.current.state.elements.length);
+    if(listWidgetRef.current.state.elements.length === 0){
+      console.log("Add locations to schedule");
+      showMessage("Add locations to schedule");
+    }
+    else{
+      toggleVisibility();
+      animateRoute(mappedPositions, transportMode);
+    }
   }
 
   const handleClearSelections = () => {
@@ -109,7 +136,8 @@ const handleTransportModeChange = (event) => {
 
   const addLocation = () => {
     if (focusedLocation === "") {
-      console.log("Please select a location");
+      console.log("Must select a location");
+      showMessage("Must select a location");
     }
     else {
       listWidgetRef.current.add(focusedLocation, focusedType);
@@ -130,7 +158,8 @@ const handleTransportModeChange = (event) => {
 
   const editLocation = () => {
     if(focusedLocation == ""){
-      console.log("Please select a valid location before saving");
+      console.log("Must select a location");
+      showMessage("Must select a location");
     }
     else{
       console.log("In the edit function")
@@ -233,7 +262,10 @@ const handleTransportModeChange = (event) => {
   return (
     <div ref={widgetRef} className={`LeftSideWidget ${!isVisible ? 'hidden' : ''}`}>
       {showOverlay && <Overlay />}
-      <h2 className="Header">NavigateUCSD</h2>
+      <div className="HeaderContainer">
+        <h2 className="Header">Navigate UCSD</h2>
+        <span className="Subtext">By Sid Nair, Akash Premkumar, Kesav Bobba</span>
+      </div>
       <div className="List-Container">
         <div className="Control-Container">
           <div className="Start-Container">

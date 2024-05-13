@@ -60,7 +60,6 @@ class ListWidget extends React.Component {
         selectedLocations: updatedLocations,
       };
     }, this.updatePositions); 
-
     this.clearSelections();
   };
 

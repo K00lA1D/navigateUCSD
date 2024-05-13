@@ -21,6 +21,17 @@
     text-align: center;
 }
 
+.HeaderContainer {
+    text-align: center;
+}
+
+.Subtext{
+    font-family: 'Bebas Neue', sans-serif;
+    color: white;
+    text-align: center;
+}
+
+
 .LeftSideWidget {
     display: grid;
     grid-template-rows: auto 1fr auto;
@@ -73,6 +84,20 @@
     border-radius: 5px;
     font-family: 'Bebas Neue', sans-serif;
 }
+
+#message-box {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    padding: 10px 20px;
+    background-color: rgba(255, 0, 0, 0.8); /* Red with transparency */
+    color: white;
+    border-radius: 5px;
+    font-size: 14px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    z-index: 1000; /* Ensure it is on top */
+    display: none; /* Hidden by default */
+  }
 
 .Toggle {
     position: absolute;

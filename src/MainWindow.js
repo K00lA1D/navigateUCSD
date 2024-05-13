@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import LeftSideWidget from './LeftSideWidget';
 import RightSideWidget from './RightSideWidget';
 import './style/MainWindow.css';
@@ -9,7 +9,11 @@ const MainWindow = () => {
     return (
       <div className="MainWindow">
         <div>
-        <LeftSideWidget toggleMarkersByType={type => azureMapRef.current.toggleMarkersByType(type)} />
+        <LeftSideWidget
+  toggleMarkersByType={type => azureMapRef.current.toggleMarkersByType(type)}
+  animateRoute={(mappedPositions, transportMode) => azureMapRef.current.animateRoute(mappedPositions, transportMode)}
+/>
+
         </div>
         <div>
         <RightSideWidget azureMapRef={azureMapRef} />

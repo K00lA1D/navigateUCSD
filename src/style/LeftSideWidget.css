@@ -15,16 +15,20 @@
     transform: translateX(100%);
 }
 
-.Header{
+.Header {
+    font-family: 'Bebas Neue', sans-serif;
     color: white;
-    text-align:center;
+    text-align: center;
 }
 
 .LeftSideWidget {
     display: grid;
-    grid-template-rows: auto 1fr auto; 
-    background: #439BCF;
-    border-radius: 10px 0px 10px 10px;
+    grid-template-rows: auto 1fr auto;
+    background: linear-gradient(to bottom, #1E5A7E, #2E7DA8, #439BCF, #6EAFD1);
+    border-radius: 0px 0px 10px 0px;
+    box-shadow: 0 4px 6px rgba(145, 141, 141, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
+    position: relative;
+    font-family: 'Bebas Neue', sans-serif;
 }
 
 .LeftSideWidget {
@@ -33,7 +37,7 @@
     left: 0;
     height: auto;
     z-index: 10;
-    transform: translateX(0%); /* Initial state off-screen */
+    transform: translateX(0%);
     transition: transform 0.25s ease-out;
 }
 
@@ -41,7 +45,9 @@
     transform: translateX(-100%);
 }
 
-.Start-Container{
+.Control-Container{
+    display: flex;
+    flex-direction: row;
     border: 5px solid #CCAA00;
     border-top: none;
     border-left: none;
@@ -49,27 +55,42 @@
     color: white;
     background-color:#FFCD00;
     padding: 0px 10px 0px 10px;
+    font-family: 'Bebas Neue', sans-serif; 
+}
 
+.Start-Container{
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    color: white;
+    background-color:#FFCD00;
+    padding: 0px 10px 0px 10px;
+    font-family: 'Bebas Neue', sans-serif;
 }
 
 .List-Container{
     border: 5px solid #CCAA00;
     border-radius: 5px;
+    font-family: 'Bebas Neue', sans-serif;
 }
 
 .Toggle {
     position: absolute;
-    right: -15px; /* Adjust as necessary */
-    top: 0px; /* Adjust as necessary */
-    width: 10px; /* Adjust as necessary */
-    height: 200px; /* Adjust as necessary */
-    background-color: #439BCF; /* Adjust color as necessary */
-    color: #fff; /* Adjust text color as necessary */
+    right: -10px;
+    top: 0px;
+    width: 10px;
+    height: 200px;
+    background: linear-gradient(#1E5A7E,#2E7DA8);
+    color: #fff;
     cursor: pointer;
-    border: 5px solid #0056b3;
-    border-left: none;
     border-radius: 0px 10px 10px 0px;
-    text-align:center;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 16px;
+    font-weight: bold;
+    font-family: 'Bebas Neue', sans-serif;
 }
 
 .LeftSideWidget {
@@ -82,7 +103,6 @@
 .LeftSideWidget > div:nth-child(2) {
     grid-column: 1 / -1;
 }
-
 
 .LeftSideWidget > div:nth-child(3) {
     display: grid;
@@ -98,6 +118,7 @@ select {
     border-radius: 4px;
     color: white;
     cursor: pointer;
+    font-family: 'Bebas Neue', sans-serif;
 }
 
 select:hover {
@@ -114,6 +135,7 @@ option {
     padding: 8px;
     background: #FFCD00;
     color: white;
+    font-family: 'Bebas Neue', sans-serif;
 }
 
 option:hover{
@@ -131,6 +153,7 @@ button {
     color: white;
     cursor: pointer;
     transition: background-color 0.3s, border-color 0.3s;
+    font-family: 'Bebas Neue', sans-serif;
 }
 
 button:hover {
@@ -141,4 +164,25 @@ button:hover {
 button:focus {
     outline: none;
     border-color: #0056b3;
+}
+
+.Transport-Container label {
+    color: white;
+    font-family: 'Bebas Neue', sans-serif;
+}
+
+.Transport-Container select {
+    background-color: #FFCD00;
+    border: 2px solid #CCAA00;
+    border-radius: 4px;
+    color: white;
+    cursor: pointer;
+    font-family: 'Bebas Neue', sans-serif;
+    padding: 8px 16px;
+    font-size: 16px;
+}
+
+.Transport-Container option {
+    background-color: #FFCD00;
+    color: white;
 }

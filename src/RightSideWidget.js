@@ -5,9 +5,11 @@ import './style/RightSideWidget.css'
 
 const RightSideWidget = ({ azureMapRef }) => {   
 
+    const subscriptionKey = process.env.REACT_APP_AZURE_MAPS_SUBSCRIPTION_KEY;
+
     return (
         <div className="RightSideWidget" style={{ height: '100vh', width: '100%' }}>
-            <AzureMap  ref={azureMapRef} subscriptionKey="q6E90CxFS1bb3-MfR4m0rEnV7HD7cuSLd9TZGi75O64" />
+            <AzureMap  ref={azureMapRef} subscriptionKey= {subscriptionKey} />
         </div>
     );
 };

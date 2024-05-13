@@ -1,5 +1,3 @@
-
-
 export const locationOptions = ['Cafe Ventanas', 'Canyon View Center', 
 'Center Hall', 'Cognitive Science Building',
 'CSE Building', 'Eleanor Roosevelt College', 'Eighth College',
@@ -16,7 +14,7 @@ export const locationOptions = ['Cafe Ventanas', 'Canyon View Center',
 'SuperComputer Center', 'Warren College', 'Warren Lecture Hall', 'York Hall',
 '64 Degrees'];
 
-const points = [
+export const points = [
     { position: [-117.240843791937, 32.8756844350981], name: 'Revelle College', type: ["College"]},
     { position: [-117.23281088454, 32.8825866510293], name: 'Warren College', type: ["College"] },
     { position: [-117.241001307279, 32.8787288659333], name: 'Muir College', type: ["College"] },

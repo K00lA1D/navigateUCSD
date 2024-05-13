@@ -2,6 +2,11 @@
     display: none !important;
 }
 
+.azure-maps-style-picker {
+    visibility: visible !important;
+}
+
 .azure-maps-style-picker .style-picker-item .style-picker-item-label {
     color: black !important;
 }
+
